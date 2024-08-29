@@ -1,0 +1,20 @@
+/* src/pages/Pokemon.css */
+
+img {
+    width: 100%;
+    height: auto;
+  }
+  
+  IonCard {
+    margin: 10px;
+  }
+  
+  IonCard img {
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  IonSelect {
+    margin: 10px;
+  }
+  
