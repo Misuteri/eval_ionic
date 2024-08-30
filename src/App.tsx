@@ -10,11 +10,8 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
 import Pokemon from './pages/Pokemon';
-import PokemonDetail from './pages/PokemonDetail'; // Importer le composant de détails
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import Films from './pages/Films';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -32,8 +29,12 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+/* Ionic Dark Mode */
+import '@ionic/react/css/palettes/dark.system.css';
+
 /* Theme variables */
 import './theme/variables.css';
+import { filmOutline, gameControllerOutline } from 'ionicons/icons';
 
 setupIonicReact();
 
@@ -45,14 +46,8 @@ const App: React.FC = () => (
           <Route exact path="/Pokemon">
             <Pokemon />
           </Route>
-          <Route exact path="/pokemon/:id">
-            <PokemonDetail />
-          </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
-          </Route>
-          <Route path="/tab3">
-            <Tab3 />
+          <Route exact path="/Films">
+            <Films /> {/* Ensure you have a Films page */}
           </Route>
           <Route exact path="/">
             <Redirect to="/Pokemon" />
@@ -60,16 +55,12 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="Pokemon" href="/Pokemon">
-            <IonIcon aria-hidden="true" icon={triangle} />
-            <IonLabel>Pokemon</IonLabel>
+            <IonIcon aria-hidden="true" icon={gameControllerOutline} />
+            <IonLabel>Pokemons</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={square} />
-            <IonLabel>Tab 3</IonLabel>
+          <IonTabButton tab="Films" href="/Films">
+            <IonIcon aria-hidden="true" icon={filmOutline} />
+            <IonLabel>Films</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
