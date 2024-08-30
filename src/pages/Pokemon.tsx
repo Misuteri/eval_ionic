@@ -98,12 +98,21 @@ const PokemonPage: React.FC = () => {
       .catch(error => console.error('Error fetching Pokémon data:', error));
   }, []);
 
+  const handleTypeChange = (value: string) => {
+    if (value === 'all') { // Ligne modifiée pour réinitialiser les filtres
+      setSelectedType('');
+    } else {
+      setSelectedType(value);
+    }
+  };
+
   const extractTypes = (pokemons: Pokemon[]) => {
     const typesSet = new Set<string>();
     pokemons.forEach(pokemon => {
       pokemon.types?.forEach(type => typesSet.add(type.name));
     });
-    const sortedTypes = Array.from(typesSet).sort((a, b) => a.localeCompare(b));
+    // Convert to array and sort alphabetically
+    const sortedTypes = Array.from(typesSet).sort((a, b) => a.localeCompare(b)); // Ligne modifiée pour trier les types
     setTypes(sortedTypes);
   };
 
