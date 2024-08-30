@@ -1,3 +1,4 @@
+// src/pages/PokemonDetail.tsx
 import React, { useEffect, useState } from 'react';
 import {
   IonContent,
@@ -17,6 +18,7 @@ import {
 } from '@ionic/react';
 import { arrowBack, arrowForward } from 'ionicons/icons';
 import { useParams, useHistory } from 'react-router-dom';
+import './PokemonDetail.css';
 
 type PokemonDetailParams = {
   id: string;

@@ -1,0 +1,92 @@
+/* Style global pour les cartes Pokémon */
+ion-card {
+  border-radius: 12px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre légère */
+  margin: 10px; /* Marge autour de la carte */
+  overflow: hidden; /* Masquer les débordements */
+  display: flex; /* Utiliser Flexbox pour aligner les éléments */
+  align-items: flex-start; /* Aligner les éléments en haut */
+  padding: 10px; /* Ajouter du padding pour l'espacement interne */
+}
+
+/* Style de l'image du Pokémon */
+ion-card img {
+  width: 100px; /* Image réduite */
+  height: auto; /* Taille fixe de l'image */
+  object-fit: cover; /* Couvrir l'espace sans déformer l'image */
+  margin-right: 10px; /* Espacement à droite de l'image */
+}
+
+/* Style de l'en-tête et du contenu de la carte */
+ion-card-header,
+ion-card-content {
+  flex: 1; /* Prendre l'espace restant à droite de l'image */
+}
+
+/* Style de l'en-tête de la carte */
+ion-card-header {
+  background-color: #f5f5f5; /* Fond léger pour l'en-tête */
+  padding: 10px; /* Espacement interne */
+  border-bottom: 1px solid #ddd; /* Bordure inférieure */
+  width: 100%; /* Prendre toute la largeur disponible */
+}
+
+/* Style pour le titre de la carte */
+ion-card-title {
+  font-size: 1.5rem; /* Taille du texte du titre */
+  font-weight: bold; /* Gras pour le titre */
+  color: #333; /* Couleur du texte */
+}
+
+/* Style pour le sous-titre de la carte */
+ion-card-subtitle {
+  font-size: 1rem; /* Taille du texte du sous-titre */
+  color: #666; /* Couleur du texte */
+  margin-top: 5px; /* Espace au-dessus du sous-titre */
+}
+
+/* Style pour le contenu de la carte */
+ion-card-content {
+  padding: 10px; /* Espacement interne */
+}
+
+/* Style pour les éléments de liste dans le contenu de la carte */
+ion-card-content ul {
+  padding-left: 20px; /* Espacement interne à gauche pour les listes */
+}
+
+/* Style pour les éléments de liste */
+ion-card-content li {
+  margin-bottom: 5px; /* Espace entre les éléments de liste */
+}
+
+/* Style pour les images des types */
+.type-icon {
+  width: 24px; /* Largeur des icônes des types */
+  height: 24px; /* Hauteur des icônes des types */
+  margin-right: 8px; /* Espacement entre les icônes */
+}
+
+/* Style des boutons */
+ion-button {
+  margin: 5px; /* Espacement autour des boutons */
+  display: inline-block; /* Affichage en ligne pour éviter les sauts de ligne */
+}
+
+/* Style pour les boutons de navigation */
+.navigation-buttons {
+  display: flex; /* Flexbox pour aligner les boutons horizontalement */
+  justify-content: center; /* Centrer les boutons */
+  margin-top: 10px; /* Marge au-dessus des boutons */
+  width: 100%; /* Prendre toute la largeur */
+}
+
+/* Style pour le bouton de retour à la liste */
+ion-button[fill="outline"] {
+  border-color: #007bff; /* Couleur de la bordure */
+  color: #007bff; /* Couleur du texte */
+}
+
+ion-button[fill="outline"]:hover {
+  background-color: #e7f0ff; /* Fond léger au survol */
+}
