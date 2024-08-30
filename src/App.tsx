@@ -12,6 +12,7 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import Pokemon from './pages/Pokemon';
 import Films from './pages/Films';
+import PokemonDetail from './pages/PokemonDetail';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -46,8 +47,11 @@ const App: React.FC = () => (
           <Route exact path="/Pokemon">
             <Pokemon />
           </Route>
+          <Route exact path="/pokemon/:id">
+            <PokemonDetail />
+          </Route>
           <Route exact path="/Films">
-            <Films /> {/* Ensure you have a Films page */}
+            <Films />
           </Route>
           <Route exact path="/">
             <Redirect to="/Pokemon" />

@@ -12,7 +12,7 @@ import {
   IonSelectOption,
   IonSearchbar
 } from '@ionic/react';
-import PokemonItem from '../components/PokmonItem';
+import PokemonItem from '../components/PokemonItem';
 import './Pokemon.css';
 
 type Pokemon = {
@@ -91,9 +91,11 @@ const PokemonPage: React.FC = () => {
     fetch('https://tyradex.vercel.app/api/v1/pokemon')
       .then(response => response.json())
       .then(data => {
-        setPokemons(data);
-        setFilteredPokemons(data);
-        extractTypes(data);
+        // Exclude MissinNo. from the data
+        const filteredData = data.filter((pokemon: Pokemon) => pokemon.pokedex_id !== 0);
+        setPokemons(filteredData);
+        setFilteredPokemons(filteredData);
+        extractTypes(filteredData);
       })
       .catch(error => console.error('Error fetching Pokémon data:', error));
   }, []);
@@ -118,20 +120,19 @@ const PokemonPage: React.FC = () => {
 
   const filterPokemons = () => {
     let results = pokemons;
-
-    if (selectedType && selectedType !== 'Tous') {
+  
+    if (selectedType) {
       results = results.filter(pokemon => pokemon.types?.some(type => type.name === selectedType));
     }
-
     if (searchQuery) {
       results = results.filter(pokemon => 
         pokemon.name.fr.toLowerCase().includes(searchQuery.toLowerCase()) ||
         pokemon.name.en.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-
     setFilteredPokemons(results);
   };
+  
 
   useEffect(() => {
     filterPokemons();
