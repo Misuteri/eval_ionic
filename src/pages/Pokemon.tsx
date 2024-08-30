@@ -91,7 +91,6 @@ const PokemonPage: React.FC = () => {
     fetch('https://tyradex.vercel.app/api/v1/pokemon')
       .then(response => response.json())
       .then(data => {
-        // Exclude MissinNo. from the data
         const filteredData = data.filter((pokemon: Pokemon) => pokemon.pokedex_id !== 0);
         setPokemons(filteredData);
         setFilteredPokemons(filteredData);
@@ -101,7 +100,7 @@ const PokemonPage: React.FC = () => {
   }, []);
 
   const handleTypeChange = (value: string) => {
-    if (value === 'all') { // Ligne modifiée pour réinitialiser les filtres
+    if (value === 'all') {
       setSelectedType('');
     } else {
       setSelectedType(value);
@@ -113,8 +112,7 @@ const PokemonPage: React.FC = () => {
     pokemons.forEach(pokemon => {
       pokemon.types?.forEach(type => typesSet.add(type.name));
     });
-    // Convert to array and sort alphabetically
-    const sortedTypes = Array.from(typesSet).sort((a, b) => a.localeCompare(b)); // Ligne modifiée pour trier les types
+    const sortedTypes = Array.from(typesSet).sort((a, b) => a.localeCompare(b));
     setTypes(sortedTypes);
   };
 
