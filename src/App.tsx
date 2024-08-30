@@ -12,6 +12,7 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import { ellipse, square, triangle } from 'ionicons/icons';
 import Pokemon from './pages/Pokemon';
+import PokemonDetail from './pages/PokemonDetail'; // Importer le composant de détails
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 
@@ -31,17 +32,6 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
-
 /* Theme variables */
 import './theme/variables.css';
 
@@ -54,6 +44,9 @@ const App: React.FC = () => (
         <IonRouterOutlet>
           <Route exact path="/Pokemon">
             <Pokemon />
+          </Route>
+          <Route exact path="/pokemon/:id">
+            <PokemonDetail />
           </Route>
           <Route exact path="/tab2">
             <Tab2 />
