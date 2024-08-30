@@ -13,7 +13,7 @@ import {
   IonSelectOption,
   IonSearchbar
 } from '@ionic/react';
-import PokemonItem from '../components/PokemonItem';
+import PokemonItem from '../components/PokmonItem';
 import './Pokemon.css';
 
 type Pokemon = {
@@ -82,86 +82,89 @@ type Pokemon = {
 };
 
 const PokemonPage: React.FC = () => {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([]);
-  const [types, setTypes] = useState<string[]>([]);
-  const [selectedType, setSelectedType] = useState<string>('');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-
-  useEffect(() => {
-    fetch('https://tyradex.vercel.app/Pokemon')
-      .then(response => response.json())
-      .then(data => {
-        setPokemons(data);
-        setFilteredPokemons(data);
-        extractTypes(data);
-      })
-      .catch(error => console.error('Error fetching Pokémon data:', error));
-  }, []);
-
-  const extractTypes = (pokemons: Pokemon[]) => {
-    const typesSet = new Set<string>();
-    pokemons.forEach(pokemon => {
-      Pokemon.types?.forEach(type => typesSet.add(type.name));
-    });
-    setTypes(Array.from(typesSet));
-  };
-
-  const filterPokemons = () => {
-    let results = pokemons;
-    if (selectedType) {
-      results = results.filter(Pokemon => Pokemon.types?.some(type => type.name === selectedType));
-    }
-    if (searchQuery) {
-      results = results.filter(Pokemon => Pokemon.name.fr.toLowerCase().includes(searchQuery.toLowerCase()));
-    }
-    setFilteredPokemons(results);
-  };
-
-  useEffect(() => {
-    filterPokemons();
-  }, [selectedType, searchQuery]);
-
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Pokémon List</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
+    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+    const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([]);
+    const [types, setTypes] = useState<string[]>([]);
+    const [selectedType, setSelectedType] = useState<string>('');
+    const [searchQuery, setSearchQuery] = useState<string>('');
+  
+    useEffect(() => {
+      fetch('https://tyradex.vercel.app/api/v1/pokemon')
+        .then(response => response.json())
+        .then(data => {
+          setPokemons(data);
+          setFilteredPokemons(data);
+          extractTypes(data);
+        })
+        .catch(error => console.error('Error fetching Pokémon data:', error));
+    }, []);
+  
+    const extractTypes = (pokemons: Pokemon[]) => {
+      const typesSet = new Set<string>();
+      pokemons.forEach(pokemon => {
+        pokemon.types?.forEach(type => typesSet.add(type.name));
+      });
+      setTypes(Array.from(typesSet));
+    };
+  
+    const filterPokemons = () => {
+      let results = pokemons;
+      if (selectedType) {
+        results = results.filter(pokemon => pokemon.types?.some(type => type.name === selectedType));
+      }
+      if (searchQuery) {
+        results = results.filter(pokemon => 
+          pokemon.name.fr.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          pokemon.name.en.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      setFilteredPokemons(results);
+    };
+  
+    useEffect(() => {
+      filterPokemons();
+    }, [selectedType, searchQuery]);
+  
+    return (
+      <IonPage>
+        <IonHeader>
           <IonToolbar>
-            <IonTitle size="large">Pokémon List</IonTitle>
+            <IonTitle>Pokémon List</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonSearchbar
-          value={searchQuery}
-          onIonInput={e => setSearchQuery((e.target as HTMLInputElement).value)}
-          debounce={0}
-          placeholder="Search Pokémon"
-        />
-        <IonSelect
-          value={selectedType}
-          placeholder="Filter by Type"
-          onIonChange={e => setSelectedType(e.detail.value)}
-        >
-          {types.map(type => (
-            <IonSelectOption key={type} value={type}>{type}</IonSelectOption>
-          ))}
-        </IonSelect>
-        <IonGrid>
-          <IonRow>
-            {filteredPokemons.map(Pokemon => (
-              <IonCol size="12" size-md="6" size-lg="4" key={Pokemon.pokedex_id}>
-                <PokemonItem Pokemon={Pokemon} />
-              </IonCol>
+        <IonContent fullscreen>
+          <IonHeader collapse="condense">
+            <IonToolbar>
+              <IonTitle size="large">Pokémon List</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <IonSearchbar
+            value={searchQuery}
+            onIonInput={e => setSearchQuery((e.target as HTMLInputElement).value)}
+            debounce={0}
+            placeholder="Search Pokémon"
+          />
+          <IonSelect
+            value={selectedType}
+            placeholder="Filter by Type"
+            onIonChange={e => setSelectedType(e.detail.value)}
+          >
+            {types.map(type => (
+              <IonSelectOption key={type} value={type}>{type}</IonSelectOption>
             ))}
-          </IonRow>
-        </IonGrid>
-      </IonContent>
-    </IonPage>
-  );
-};
-
-export default PokemonPage;
+          </IonSelect>
+          <IonGrid>
+            <IonRow>
+              {filteredPokemons.map(pokemon => (
+                <IonCol size="12" size-md="6" size-lg="4" key={pokemon.pokedex_id}>
+                  <PokemonItem pokemon={pokemon} />
+                </IonCol>
+              ))}
+            </IonRow>
+          </IonGrid>
+        </IonContent>
+      </IonPage>
+    );
+  };
+  
+  export default PokemonPage;
